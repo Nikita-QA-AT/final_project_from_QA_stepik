@@ -10,7 +10,6 @@ from selenium.common.exceptions import TimeoutException
 from .pages.main_page import MainPage
 
 
-
 def go_to_login_page(browser):
     login_link = browser.find_element(By.CSS_SELECTOR, "#login_link")
     login_link.click()

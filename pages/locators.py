@@ -11,3 +11,5 @@ class LoginPageLocators():
     
 class ProductPageLocators():
     ADD_TO_CART_SELECTOR = (By.CSS_SELECTOR, ".btn-add-to-basket")
+    MESSAGE_ABOUT_ADDING = (By.CSS_SELECTOR, "div.alert-success:first-of-type div.alertinner strong")
+    

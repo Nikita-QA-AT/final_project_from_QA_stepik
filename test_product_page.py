@@ -40,11 +40,11 @@ def est_guest_can_add_product_to_basket(browser):
     page.should_be_message_about_adding()
     time.sleep(1)
     page.should_be_message_basket_total()
-    time.sleep(600)
+    time.sleep(1)
     
     
     
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+def est_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()        # открываем страницу
@@ -54,7 +54,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     print("сообщения о добавлении товара не было __так и должно быть__")
     
     
-def test_guest_cant_see_success_message(browser):
+def est_guest_cant_see_success_message(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()        # открываем страницу   
@@ -63,10 +63,17 @@ def test_guest_cant_see_success_message(browser):
     
     
 
-def test_message_disappeared_after_adding_product_to_basket(browser):
+def est_message_disappeared_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()    # открываем страницу
     page.add_to_cart()
 #    page.solve_quiz_and_get_code()
     page.should_element_dolshen_ischezat()
+
+
+def test_guest_should_see_login_link_on_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_be_login_link()

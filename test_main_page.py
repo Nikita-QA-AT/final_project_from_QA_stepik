@@ -46,5 +46,7 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     # перешли на страницу корзины (теперь можно применять методы из basket_page.py)
     page.go_to_basket_page()
     time.sleep(5)
+    # инициализируем другой Page Object т.к. теперь действуем на другой странице, передаем в конструктор экземпляр драйвера и url адрес
     page = BasketPage(browser, link)
+    page.should_v_korzine_ne_dolsho_bit_tovarov()
     page.should_be_message_vasha_korzina_pysta()

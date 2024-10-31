@@ -27,3 +27,4 @@ class BasePageLocators():
     
 class BasketPageLocators():    
     MESSAGE_IN_BASKET = (By.CSS_SELECTOR, "#content_inner p")
+    BLOK_S_TOVARAMI_V_KORZINE = (By.CSS_SELECTOR, "div.basket-items")

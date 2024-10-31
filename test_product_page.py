@@ -102,4 +102,5 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page.go_to_basket_page()
     time.sleep(5)
     page = BasketPage(browser, link)
+    page.should_v_korzine_ne_dolsho_bit_tovarov()
     page.should_be_message_vasha_korzina_pysta()

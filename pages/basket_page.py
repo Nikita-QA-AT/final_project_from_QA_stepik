@@ -13,4 +13,13 @@ class BasketPage(BasePage):
         print('soobsheniye =', soobsheniye)
         # Проверяем, что сообщение включает в себя текст 
         assert "Ваша корзина пуста" in soobsheniye, "текст не совпадает"
-        print("успешно проверили что текст Ваша корзина пуста")
+        print("успешно проверили что есть текст Ваша корзина пуста")
+        
+        
+        
+        
+    def should_v_korzine_ne_dolsho_bit_tovarov(self):
+    # проверяем, что блок с добавленными товарами отсутствует
+        assert self.is_not_element_present(*BasketPageLocators.BLOK_S_TOVARAMI_V_KORZINE), (
+            "blok s tovarami v korzine poyavilsya sledovatelno korzina ne pysta")
+        print("успешно проверили что в корзине нет товаров")

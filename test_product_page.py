@@ -94,7 +94,7 @@ def est_guest_can_go_to_login_page_from_product_page(browser):
     
     
     
-def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+def est_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()    # открываем страницу 
@@ -104,3 +104,28 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page = BasketPage(browser, link)
     page.should_v_korzine_ne_dolsho_bit_tovarov()
     page.should_be_message_vasha_korzina_pysta()
+    
+    
+@pytest.mark.user_add_to_basket
+class TestUserAddToBasketFromProductPage():
+    def test_user_cant_see_success_message(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
+        page.open()        # открываем страницу   
+        page.should_not_be_success_message()
+        print("Проверяем, что нет сообщения об успехе _так_и_должно_быть_так_как_просто_открыли_страницу_с_товаром")
+        
+        
+    def test_user_can_add_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+        page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
+        page.open()        # открываем страницу
+        time.sleep(1)
+        page.add_to_cart() # через Page Object вызвал метод add_to_cart, который нажимает кнопку "Добавить в корзину"
+        time.sleep(1)
+        page.solve_quiz_and_get_code()
+        time.sleep(1)
+        page.should_be_message_about_adding()
+        time.sleep(1)
+        page.should_be_message_basket_total()
+        time.sleep(1)

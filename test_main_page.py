@@ -15,7 +15,7 @@ from .pages.basket_page import BasketPage
 
 @pytest.mark.login_guest
 class TestLoginFromMainPage():
-    def est_guest_can_go_to_login_page(self, browser):
+    def test_guest_can_go_to_login_page(self, browser):
         link = "http://selenium1py.pythonanywhere.com/"
         page = MainPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
         page.open()        # открываем страницу
@@ -25,14 +25,14 @@ class TestLoginFromMainPage():
         
         
         
-    def est_guest_should_see_login_link(self, browser):
+    def test_guest_should_see_login_link(self, browser):
         link = "http://selenium1py.pythonanywhere.com/"
         page = MainPage(browser, link)
         page.open()
         page.should_be_login_link()
     
     
-def est_guest_can_see_login_page(browser):
+def test_guest_can_see_login_page(browser):
     link = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
     page = LoginPage(browser, link)
     page.open()
@@ -40,7 +40,7 @@ def est_guest_can_see_login_page(browser):
     page.should_be_login_page()
     
     
-def est_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open() 

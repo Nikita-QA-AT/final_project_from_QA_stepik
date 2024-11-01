@@ -12,23 +12,15 @@ from .pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 from .pages.basket_page import BasketPage
 
-
-
-def go_to_login_page(browser):
-    login_link = browser.find_element(By.CSS_SELECTOR, "#login_link")
-    login_link.click()
-
-    
-    
-    
+   
+@pytest.mark.xfail    
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()        # открываем страницу
     page.add_to_cart()
-#    page.solve_quiz_and_get_code()
     page.should_not_be_success_message()
-    print("сообщения о добавлении товара не было __так и должно быть__")
+    print("тест test_guest_cant_see_success_message_after_adding_product_to_basket ожидаемо падает т.к. при добавлении товара в козину ПОЯВЛЯЕТСЯ сообщение об успешном добавлении")
     
     
 def test_guest_cant_see_success_message(browser):
@@ -37,40 +29,26 @@ def test_guest_cant_see_success_message(browser):
     page.open()        # открываем страницу   
     page.should_not_be_success_message()
     print("Проверяем, что нет сообщения об успехе _так_и_должно_быть_так_как_просто_открыли_страницу_с_товаром")
+    print("Успешно прошел тест test_guest_cant_see_success_message")
     
     
-
+@pytest.mark.xfail
 def test_message_disappeared_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()    # открываем страницу
     page.add_to_cart()
     page.should_element_dolshen_ischezat()
-
+    print("тест test_message_disappeared_after_adding_product_to_basket ожидаемо падает т.к. сообщение о добавл. товара в корзину корректно не исчезает через 10 секунд")
 
 def test_guest_should_see_login_link_on_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
     page.open()
     page.should_be_login_link()
+    print("Успешно прошел тест test_guest_should_see_login_link_on_product_page")
     
-    
-    
-    
-def test_guest_can_go_to_login_page_from_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-    page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
-    page.open()        # открываем страницу
-    page.go_to_login_page()
-    print("успешно перешли на страницу логина")
-    login_page = LoginPage(browser, browser.current_url)
-    login_page.should_be_login_page()         # выполняем метод страницы — переходим на страницу логина
-    print("успешно проверили, что на странице логина есть необходимые элементы и ссылки")
-    
-    
-    
-
-    
+   
     
 @pytest.mark.user_add_to_basket
 class TestUserAddToBasketFromProductPage():
@@ -100,6 +78,7 @@ class TestUserAddToBasketFromProductPage():
         page.open()        # открываем страницу   
         page.should_not_be_success_message()
         print("Проверяем, что нет сообщения об успехе _так_и_должно_быть_так_как_просто_открыли_страницу_с_товаром")
+        print("Успешно прошел тест test_user_cant_see_success_message")
     
     
     
@@ -110,32 +89,24 @@ def test_user_can_add_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()        # открываем страницу
-    time.sleep(1)
     page.add_to_cart() # через Page Object вызвал метод add_to_cart, который нажимает кнопку "Добавить в корзину"
     print("успешно добавили товар в корзину")   
     page.solve_quiz_and_get_code()
-    time.sleep(1)
     print("успешно решили задачу и получили код") 
     page.should_be_message_about_adding()
-    time.sleep(1)
     page.should_be_message_basket_total()
-    time.sleep(1)
-        
+    print("успешно прошел тест test_user_can_add_product_to_basket")    
         
 @pytest.mark.need_review         
 def test_guest_can_add_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
     page.open()        # открываем страницу
-    time.sleep(1)
     page.add_to_cart() # через Page Object вызвал метод add_to_cart, который нажимает кнопку "Добавить в корзину"
-    time.sleep(1)
     page.solve_quiz_and_get_code()
-    time.sleep(1)
     page.should_be_message_about_adding()
-    time.sleep(1)
     page.should_be_message_basket_total()
-    time.sleep(1)
+    print("успешно прошел тест test_user_can_add_product_to_basket")
         
         
 @pytest.mark.need_review         
@@ -145,10 +116,10 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page.open()    # открываем страницу 
     # перешли на страницу корзины (теперь можно применять методы из basket_page.py)
     page.go_to_basket_page()
-    time.sleep(5)
     page = BasketPage(browser, link)
     page.should_v_korzine_ne_dolsho_bit_tovarov()
     page.should_be_message_vasha_korzina_pysta()
+    print("успешно прошел тест test_guest_cant_see_product_in_basket_opened_from_product_page")
         
         
 @pytest.mark.need_review         
@@ -161,3 +132,5 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page = LoginPage(browser, browser.current_url)
     login_page.should_be_login_page()         # выполняем метод страницы — переходим на страницу логина
     print("успешно проверили, что на странице логина есть необходимые элементы и ссылки")
+    print("успешно прошел тест test_guest_can_go_to_login_page_from_product_page")
+

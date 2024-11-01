@@ -12,7 +12,7 @@ class BasketPage(BasePage):
         soobsheniye = self.browser.find_element(*BasketPageLocators.MESSAGE_IN_BASKET).text
         print('soobsheniye =', soobsheniye)
         # Проверяем, что сообщение включает в себя текст 
-        assert "Ваша корзина пуста" in soobsheniye, "текст не совпадает"
+        assert "Ваша корзина пуста" in soobsheniye or "Your basket is empty" in soobsheniye, "текст не совпадает"
         print("успешно проверили что есть текст Ваша корзина пуста")
         
         
